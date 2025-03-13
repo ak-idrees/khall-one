@@ -10,4 +10,4 @@ jobs:
         - name: List All files
           run: ls
         - name: Read File
-          run: ls README.md
+          run: Cat README.md
