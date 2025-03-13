@@ -1,18 +1,40 @@
 name: Generate ASCII Artowrk
+
 on:
-   push 
-jobs: 
-  ascii_job:
-    runs-on: ubuntu-latest
+  push:
+    branches:
+      - main
+
+jobs:
+  cowsay-job:
+    runs-on: ubuntu-latest  # Use a GitHub-hosted Ubuntu runner
+
     steps:
+      # Step 1: Checkout the repository (if needed for your setup)
+      - name: Checkout Repo
+        uses: actions/checkout@v4
 
-    - name: Checkout Repo
-      uses: actions/checkout@v4
+      # Step 2: Install cowsay program
+      - name: Install Cowsay Program
+        run: |
+          sudo apt-get update
+          sudo apt-get install cowsay -y
 
-    - name: List Repo File
-      run: ls -ltra
-  
-    - name: Executing Shell Script
-      run: ./ascii-script.sh
-  
+      # Step 3: Execute Cowsay Command and save to dragon.txt
+      - name: Execute Cowsay CMD
+        run: |
+          cowsay -f dragon "Run for cover, I am a DRAGON....RAWR" >> dragon.txt
+
+      # Step 4: Sleep for 10 seconds
+      - name: Sleep for 10 seconds
+        run: sleep 10
+
+      # Step 5: List directory contents (debugging step)
+      - name: List Directory Contents
+        run: ls -l
+
+      # Step 6: Read the dragon.txt file
+      - name: Read the dragon.txt file
+        run: cat dragon.txt
+
     
